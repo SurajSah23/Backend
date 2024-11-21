@@ -1,36 +1,23 @@
-
 const http = require('http').createServer();
-
 const io = require('socket.io')(http, {
     cors: { origin: "*" }
 });
 
+// Listen for new connections
 io.on('connection', (socket) => {
     console.log('a user connected');
 
-    socket.on('message', (message) =>     {
+    // Handle incoming message
+    socket.on('message', (message) => {
         console.log(message);
-        io.emit('message', `${socket.id.substr(0,2)} said ${message}` );   
+        io.emit('message', `${socket.id.substr(0, 2)} said ${message}`);
     });
 });
 
-http.listen(8080, () => console.log('listening on http://localhost:8080') );
+// Change the port to 3000 (or any other port you prefer)
+const port = process.env.PORT || 3000; 
 
-
-// Regular Websockets
-
-// const WebSocket = require('ws')
-// const server = new WebSocket.Server({ port: '8080' })
-
-// server.on('connection', socket => { 
-
-//   socket.on('message', message => {
-
-//     socket.send(`Roger that! ${message}`);
-
-//   });
-
-// });
-
-
- 
+// Start the server on the new port
+http.listen(port, () => {
+    console.log(`listening on http://localhost:${5000}`);
+});
